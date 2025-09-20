@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "256358426496",
+    "project_id": "optimizer-febf4",
+    "storage_bucket": "optimizer-febf4.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256358426496:android:d1944afbc4a6c01c890365",
+        "android_client_info": {
+          "package_name": "com.example.optimizer"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAsb_C0IB7vNkUlUNzGvwR3v8_SP7B6leQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
