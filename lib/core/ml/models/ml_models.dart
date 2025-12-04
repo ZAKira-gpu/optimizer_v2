@@ -402,4 +402,23 @@ class ScoreCalculationResult {
       isCached: json['isCached'] as bool? ?? false,
     );
   }
+
+  /// Create a copy with updated fields
+  ScoreCalculationResult copyWith({
+    String? userId,
+    DateTime? date,
+    MLOutputData? scores,
+    String? modelVersion,
+    DateTime? calculatedAt,
+    bool? isCached,
+  }) {
+    return ScoreCalculationResult(
+      userId: userId ?? this.userId,
+      date: date ?? this.date,
+      scores: scores ?? this.scores,
+      modelVersion: modelVersion ?? this.modelVersion,
+      calculatedAt: calculatedAt ?? this.calculatedAt,
+      isCached: isCached ?? this.isCached,
+    );
+  }
 }

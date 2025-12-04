@@ -1,9 +1,7 @@
 import 'dart:io';
-import 'dart:typed_data';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 import 'package:tflite_flutter/tflite_flutter.dart';
-import 'package:tflite_flutter_helper/tflite_flutter_helper.dart';
 import '../models/ml_models.dart';
 
 /// ML Score Service for calculating health, efficiency, and lifestyle scores
@@ -16,7 +14,7 @@ class MLScoreService {
   MLScoreService._();
 
   // Model and interpreter
-  Interpreter? _interpreter;
+  dynamic _interpreter;
   bool _isInitialized = false;
   String? _modelPath;
   String? _error;
@@ -85,7 +83,7 @@ class MLScoreService {
       }
 
       // Load the actual model
-      _interpreter = await Interpreter.fromFile(File(_modelPath!));
+      _interpreter = Interpreter.fromFile(File(_modelPath!));
 
       if (kDebugMode) {
         print('✅ TensorFlow Lite model loaded from: $_modelPath');
@@ -296,18 +294,10 @@ class MLScoreService {
 }
 
 /// Mock interpreter for development
-class _MockInterpreter implements Interpreter {
-  @override
+class _MockInterpreter {
   void run(Object input, Object output) {
     // Mock implementation that returns realistic scores based on input
     final inputList = (input as List<List<double>>)[0];
-
-    // Simple scoring logic based on input values
-    final steps = inputList[0];
-    final sleepHours = inputList[1];
-    final completedTasks = inputList[11];
-    final totalTasks = inputList[12];
-    final efficiencyScore = inputList[15];
 
     // Calculate mock scores
     final healthScore = _calculateMockHealthScore(inputList);
@@ -330,7 +320,6 @@ class _MockInterpreter implements Interpreter {
     final sleepHours = input[1];
     final caloriesIn = input[2];
     final caloriesOut = input[3];
-    final waterIntake = input[4];
 
     // Simple scoring based on health metrics
     double score = 50.0; // Base score
@@ -362,7 +351,6 @@ class _MockInterpreter implements Interpreter {
     final completedTasks = input[11];
     final totalTasks = input[12];
     final completedPomodoros = input[13];
-    final efficiencyScore = input[15];
 
     double score = 50.0; // Base score
 
@@ -382,8 +370,6 @@ class _MockInterpreter implements Interpreter {
     final screenTime = input[18];
     final exerciseMinutes = input[19];
     final socialInteractions = input[20];
-    final stressLevel = input[21];
-    final mood = input[22];
 
     double score = 50.0; // Base score
 
@@ -405,53 +391,24 @@ class _MockInterpreter implements Interpreter {
     return score.clamp(0, 100);
   }
 
-  @override
   void close() {
     // Mock implementation - nothing to close
   }
 
-  @override
-  Tensor getInputTensor(int index) {
+  dynamic getInputTensor(int index) {
     return _MockTensor([1, 26]); // Mock input shape
   }
 
-  @override
-  Tensor getOutputTensor(int index) {
+  dynamic getOutputTensor(int index) {
     return _MockTensor([1, 4]); // Mock output shape
-  }
-
-  @override
-  int get inputTensorCount => 1;
-
-  @override
-  int get outputTensorCount => 1;
-
-  @override
-  void resizeInputTensor(int index, List<int> shape) {
-    // Mock implementation
-  }
-
-  @override
-  void allocateTensors() {
-    // Mock implementation
   }
 }
 
 /// Mock tensor for development
-class _MockTensor implements Tensor {
+class _MockTensor {
   final List<int> _shape;
 
   _MockTensor(this._shape);
 
-  @override
   List<int> get shape => _shape;
-
-  @override
-  DataType get type => DataType.float32;
-
-  @override
-  int get numBytes => 0;
-
-  @override
-  int get numElements => 0;
 }
