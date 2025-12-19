@@ -45,9 +45,19 @@ service cloud.firestore {
     match /stepData/{userId} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+
+    // Allow authenticated users to read/write step tracking data (used by StepTrackerService)
+    match /stepTracking/{userId}/{document=**} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
     
     // Allow authenticated users to read/write sleep data
     match /sleepData/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
+    }
+
+    // Allow authenticated users to read/write sleep tracking data (used by SleepDetectionService)
+    match /sleepTracking/{userId}/{document=**} {
       allow read, write: if request.auth != null && request.auth.uid == userId;
     }
     

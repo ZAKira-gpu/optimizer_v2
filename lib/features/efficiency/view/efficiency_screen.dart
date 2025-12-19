@@ -197,12 +197,15 @@ class _EfficiencyScreenState extends State<EfficiencyScreen> {
             children: [
               Icon(icon, color: Colors.white, size: 18),
               const SizedBox(width: 6),
-              Text(
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
-                  fontSize: 14,
+              Flexible(
+                child: Text(
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontWeight: isSelected ? FontWeight.w600 : FontWeight.w400,
+                    fontSize: 14,
+                  ),
+                  overflow: TextOverflow.ellipsis,
                 ),
               ),
             ],

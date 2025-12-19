@@ -17,7 +17,10 @@ class HiveSyncService {
 
     try {
       // Register all adapters
-      Hive.registerAdapter(HealthDataModelAdapter());
+      // HealthDataModelAdapter is already registered in HiveDatabaseService
+      if (!Hive.isAdapterRegistered(0)) {
+        Hive.registerAdapter(HealthDataModelAdapter());
+      }
       Hive.registerAdapter(MealDataModelAdapter());
       Hive.registerAdapter(MealItemDataAdapter());
       Hive.registerAdapter(NutritionInfoDataAdapter());
